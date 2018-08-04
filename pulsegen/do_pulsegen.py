@@ -8,18 +8,20 @@ from pulsegen import pulsegen
 
 num_led = 8
 clock = Signal(False)
-leds = Signal(intbv(0)[num_led:])
+pulse = Signal(False)
+freq = Signal(intbv(30,max=50))
+dur = Signal(intbv(12,max=20))
 
 @block
-def test_pulsegenerator(clk,leds):
+def test_pulsegenerator(clk,out):
     clkdrv = ClkDriver(clk=clk, period=10)
-    tbdut = blink(clk, leds, num_led=num_led, cnt_max=5)
-    return tbdut, clkdrv
+    uut = pulsegen(clk, freq, dur, pulse)
+    return uut, clkdrv
 
 @block
 def pulsegenerator(clk,leds):
-    tbdut = pulsegen(clk, leds, num_led)
-    return tbdut
+    pulsegen = pulsegen(clk, freq, dur, pulse)
+    return pulsegen
 
 if "--test" in str(sys.argv):
     do_test=True
@@ -27,7 +29,7 @@ else:
     do_test=False
 
 if do_test:
-    tr = test_pulsegenerator(clock,leds)
+    tr = test_pulsegenerator(clock,pulse)
     tr.config_sim(trace=True)
     tr.run_sim(1000)
 else:

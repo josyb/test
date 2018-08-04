@@ -2,34 +2,33 @@ from myhdl import Signal, intbv, always, always_comb, block, now
 
 @block
 def pulsegen(
-  # ~~~[Ports]~~~
-  clock,                 # input : system sync clock
-  led,                   # output : to IO ports drive LEDs
-  # ~~~[Parameters]~~~
-  num_led,
-  cnt_max = 5000000#int(clock_frequency * led_rate)
-
+	# ~~~[Ports]~~~
+	clock,		# input  : clock
+	frequence,	# input  : one pulse will start every frequence clock cycles
+	duration,	# input  : every pulse will last duration clock cycles
+	out_pulse,	# output : the output with the pulse
+	# ~~~[Parameters]~~~
+	cnt_max = 1000
 ):
-    led_mem = Signal(intbv(0)[num_led:0])
-    clk_cnt = Signal(intbv(0, min=0, max=cnt_max))
-    strobe = Signal(False)
+	pulse_mem = Signal(intbv(0)[1:0])
+	clk_cnt = Signal(intbv(0, min=0, max=cnt_max))
 
-    @always(clock.posedge)
-    def beh_strobe():
-        if clk_cnt >= cnt_max-1:
-            clk_cnt.next = 0
-            strobe.next = not strobe
-            if strobe:
-                led_mem.next=0
-                print ("%s change!%s"% (now(),str(led_mem)))
-            else:
-                led_mem.next=led_mem.max-1
-                print ("%s change!%s"% (now(),str(led_mem)))
-        else:
-            clk_cnt.next = clk_cnt + 1
+	@always(clock.posedge)
+	def beh_strobe():
+		#print ("%s posedge "%(now()))
+		if clk_cnt >= frequence-1:
+			pulse_mem.next = 0
+			clk_cnt.next = 0
+		else:
+			if clk_cnt >= duration:
+				pulse_mem.next = 0
+				clk_cnt.next = clk_cnt + 1
+			else:
+				pulse_mem.next = 1
+				clk_cnt.next = clk_cnt + 1
 
-    @always_comb
-    def beh_map_output():
-        led.next = led_mem
+	@always_comb
+	def beh_map_output():
+		out_pulse.next = pulse_mem
 
-    return beh_strobe, beh_map_output
+	return beh_strobe, beh_map_output
