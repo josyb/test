@@ -1,9 +1,11 @@
 # test
-I am trying to do things with myhdl
+Basic start with MyHDL
 
-fpga25_snip4.py and test_stroby.py are the files in myHDL
-test_random.v is the verilog generated file
-and in test_random_corrected.v i have made some changes that make it compile.
-I feel that after my changes I should re-simulate.
+blink folder blink all leds on ice40 H8X Breakout Board
+shifter folder "should" blink one led a time, shifting it left and right, still not working though
 
-then there is a makefile and example-8k.pcf that declares the connection between signals and pins.
+makefile options:
+    make tb    -> translate myHDL in verilog, sintesize, and load on fpga
+    make test  -> run test in myHDL
+    make clean -> clean
+
