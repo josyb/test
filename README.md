@@ -15,3 +15,4 @@ makefile options:
 
     make clean -> clean
 
+this requires having icestorm http://www.clifford.at/icestorm/ and myhdl http://www.myhdl.org/start/installation.html installed
