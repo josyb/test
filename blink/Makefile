@@ -16,7 +16,7 @@ blinker.v: do_blink.py blink.py
 	python do_blink.py
 
 clean:
-	rm tb.blif  tb.txt tb.bin blinker.v
+	rm tb.* *.v *.vcd
 
 
 test: do_blink.py blink.py

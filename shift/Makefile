@@ -16,7 +16,7 @@ shifter.v: do_shift.py shift.py
 	python do_shift.py
 
 clean:
-	rm tb.blif  tb.txt tb.bin *.v
+	rm tb.* *.v *.vcd
 
 test: do_shift.py shift.py
 	python do_shift.py --test
