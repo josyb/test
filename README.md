@@ -2,7 +2,9 @@
 Basic start with MyHDL
 
 folders:
+
 -src: you can find some block (or module) definition
+
 -test: you can find usage for blocks, some tests are unitary, others use more blocks
 
 makefile options:
