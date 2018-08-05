@@ -22,7 +22,7 @@ def shift(
     @always(clock.posedge)
     def beh_strobe():
         if clk_cnt >= cnt_max:
-            clk_cnt.next = 0
+            clk_cnt.next = 1
             print ("%s led change!%s"% (now(),str(led_mem)))
             if ltr:
                 led_mem.next=led_mem<<1
@@ -34,13 +34,15 @@ def shift(
             if led_mem == (1<<(num_led-2)):
                 ltr.next=0
                 print ("%s dir change!  go 0"%now())
-
         else:
             clk_cnt.next = clk_cnt + 1
+        if clk_cnt==0:
+            led_mem.next = 1
+
 
 
     @always_comb
     def beh_map_output():
         led.next = led_mem
-        
+
     return beh_strobe, beh_map_output
