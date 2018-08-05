@@ -1,6 +1,4 @@
-tb: upload-tb
-
-upload-tb: tb.bin
+upload: tb.bin
 	sudo iceprog tb.bin
 
 tb.bin: tb.txt
@@ -17,7 +15,6 @@ wavepulser.v: do_wavepulse.py
 
 clean:
 	rm tb.* *.v *.vcd *.pyc
-
 
 test: do_wavepulse.py
 	python do_wavepulse.py --test
