@@ -10,16 +10,16 @@ from divisor import divisor
 clock = Signal(False)
 pulse = Signal(False)
 
-width=20
+width=32
 @block
 def wavepulser(clk,out):
-	freq = Signal(intbv(5000000,max=10000000)[width:])
-	dur = Signal (intbv(1000000,max=10000000)[width:])
-	clk_div = Signal(False)
-	pg = pulsegen(clk, freq, dur, out)
-	#div = divisor(clk_in=clk, division=30 ,clk_out= clk_div)
-	#wg = wavegen(clk_div,freq,min_val=2, max_val=10,start=3)
-	return pg#, div, wg
+	freq = Signal(intbv(50000,max=10000000)[width:])
+	dur = Signal (intbv(100,max=10000000)[width:])
+	#clk_div = Signal(False)
+	pg = pulsegen (clk, freq, dur, out)
+	#div = divisor (clk_in=clk, division=50000,  clk_out= clk_div)
+	wg = wavegen (clk, out_val=freq, min_val=3000, max_val=20000, start=10000, count=50000)
+	return wg, pg #, div
 
 @block
 def test_wavepulser(clk,out):

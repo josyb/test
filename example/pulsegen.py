@@ -8,7 +8,7 @@ def pulsegen(
 	duration,	# input  : every pulse will last duration clock cycles
 	out_pulse,	# output : the output with the pulse
 	# ~~~[Parameters]~~~
-	cnt_max = 1000
+	cnt_max = 10000000
 ):
 	pulse_mem = Signal(intbv(0)[1:0])
 	clk_cnt = Signal(intbv(0, min=0, max=cnt_max))
@@ -16,7 +16,7 @@ def pulsegen(
 	@always(clock.posedge)
 	def beh_strobe():
 		#print ("%s posedge "%(now()))
-		if clk_cnt >= frequence-1:
+		if clk_cnt >= frequence:
 			pulse_mem.next = 0
 			clk_cnt.next = 0
 		else:

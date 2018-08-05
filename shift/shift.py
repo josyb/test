@@ -15,13 +15,13 @@ def shift(
     #cnt_max = 5#000000#int(clock_frequency * led_rate)
     # Declare the internal Signals in our design
     led_mem = Signal(intbv(1)[num_led:0])
-    clk_cnt = Signal(intbv(0, min=0, max=cnt_max))
+    clk_cnt = Signal(intbv(0, min=0, max=cnt_max+10)[32:])
     strobe = Signal(False)
     ltr = Signal(True)
 
     @always(clock.posedge)
     def beh_strobe():
-        if clk_cnt >= cnt_max-1:
+        if clk_cnt >= cnt_max:
             clk_cnt.next = 0
             print ("%s led change!%s"% (now(),str(led_mem)))
             if ltr:

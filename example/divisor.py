@@ -15,7 +15,7 @@ def divisor(
 	@always(clk_in.posedge)
 	def beh_strobe():
 		#print ("%s posedge "%(now()))
-		if clk_cnt >= division-1:
+		if clk_cnt >= division:
 			div_mem.next = not div_mem
 			clk_cnt.next = 0
 		else:

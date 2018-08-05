@@ -8,7 +8,7 @@ def blink(
   # ~~~[Parameters]~~~
   # The number of dummy LEDS on each side
   num_led,
- cnt_max = 5000000#int(clock_frequency * led_rate)   
+  cnt_max = 5000000#int(clock_frequency * led_rate)   
 
 ):
 
