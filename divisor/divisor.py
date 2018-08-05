@@ -4,7 +4,7 @@ from myhdl import Signal, intbv, always, always_comb, block, now
 def divisor(
 	# ~~~[Ports]~~~
 	clk_in,		# input  : clock
-	clk_out,	# output  : one pulse will start every frequence clock cycles
+	clk_out,	# output  : clock divided by division, one edge every division clock cycles
 
 	# ~~~[Parameters]~~~
 	division = 100
@@ -12,7 +12,7 @@ def divisor(
 	div_mem = Signal(intbv(0)[1:0])
 	clk_cnt = Signal(intbv(0, min=0, max=division))
 
-	@always(clock.posedge)
+	@always(clk_in.posedge)
 	def beh_strobe():
 		#print ("%s posedge "%(now()))
 		if clk_cnt >= division-1:

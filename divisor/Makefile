@@ -19,5 +19,5 @@ clean:
 	rm tb.* *.v *.vcd *.pyc
 
 
-test: do_pulsegen.py divisor.py
+test: do_divisor.py divisor.py
 	python do_divisor.py --test
