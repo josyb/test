@@ -5,7 +5,7 @@ tb.bin: tb.txt
 	icepack tb.txt tb.bin
 
 tb.txt: tb.blif
-	arachne-pnr -d 8k -p example-8k.pcf -o tb.txt tb.blif
+	arachne-pnr -d 8k -p ../../conf_pcf/ICE40H8KBreakoutBoard.pcf -o tb.txt tb.blif
 
 tb.blif: shifter.v
 	yosys -p "read_verilog shifter.v; synth_ice40 -blif tb.blif"

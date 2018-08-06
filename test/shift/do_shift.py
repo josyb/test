@@ -1,4 +1,6 @@
 import sys
+import os
+sys.path.append( os.path.abspath("../../src/") )
 import myhdl
 from myhdl import block, Signal, intbv
 
@@ -12,14 +14,14 @@ leds = Signal(intbv(0)[num_led:])
 
 
 @block
-def test_shifter(clk,leds):
-    clkdrv = ClkDriver(clk, period=10)
-    tbdut = shift(clk, leds, num_led=num_led, cnt_max=5)
+def test_shifter(clock,leds):
+    clkdrv = ClkDriver(clock, period=10)
+    tbdut = shift(clock, leds, num_led=num_led, cnt_max=5)
     return tbdut, clkdrv
 
 @block
-def shifter(clk,leds):
-    tbdut = shift(clk, leds, num_led)
+def shifter(clock,leds):
+    tbdut = shift(clock, leds, num_led)
     return tbdut
 
 if "--test" in str(sys.argv):

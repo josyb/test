@@ -1,10 +1,12 @@
 import sys
+import os
+sys.path.append( os.path.abspath("../../src/") )
 import myhdl
 from myhdl import block, Signal, intbv
 
 from ClkDriver import ClkDriver
 from pulsegen import pulsegen
-from wavegentmp import wavegen
+from wavegen import wavegen
 from divisor import divisor
 
 clock = Signal(False)
@@ -18,8 +20,8 @@ def wavepulser(clk,out):
 	clk_div = Signal(False)
 	pg = pulsegen (clk, freq, dur, out)
 	div = divisor (clk_in=clk, division=50000,  clk_out= clk_div)
-	wg = wavegen (clk, out_val=freq, min_val=3000, max_val=20000, start=10000)#, count=50000)
-	return wg, pg , div
+	wg = wavegen (clk_div, out_val=freq, min_val=3000, max_val=20000, start=10000)#, count=50000)
+	return wg, pg, div
 
 @block
 def test_wavepulser(clk,out):
