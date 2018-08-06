@@ -4,7 +4,7 @@ from myhdl import block, Signal, intbv
 
 from ClkDriver import ClkDriver
 from pulsegen import pulsegen
-from wavegen import wavegen
+from wavegentmp import wavegen
 from divisor import divisor
 
 clock = Signal(False)
@@ -15,11 +15,11 @@ width=32
 def wavepulser(clk,out):
 	freq = Signal(intbv(50000,max=10000000)[width:])
 	dur = Signal (intbv(100,max=10000000)[width:])
-	#clk_div = Signal(False)
+	clk_div = Signal(False)
 	pg = pulsegen (clk, freq, dur, out)
-	#div = divisor (clk_in=clk, division=50000,  clk_out= clk_div)
-	wg = wavegen (clk, out_val=freq, min_val=3000, max_val=20000, start=10000, count=50000)
-	return wg, pg #, div
+	div = divisor (clk_in=clk, division=50000,  clk_out= clk_div)
+	wg = wavegen (clk, out_val=freq, min_val=3000, max_val=20000, start=10000)#, count=50000)
+	return wg, pg , div
 
 @block
 def test_wavepulser(clk,out):
@@ -43,4 +43,4 @@ if do_test:
 	tr.run_sim(10000)
 else:
 	tr = wavepulser(clock,pulse)
-	tr.convert('Verilog')
+	tr.convert('Verilog',initial_values=True)
