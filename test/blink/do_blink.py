@@ -9,14 +9,14 @@ from ClkDriver import ClkDriver
 
 from divisor import divisor
 
-num_led = 5
+num_led = 8
 clock = Signal(False)
 leds = Signal(intbv(0)[8:])
 
 @block
 def blinker(
 	# ~~~[Ports]~~~
-	clk,
+	clock,
 	leds,
 	# ~~~[Parameters]~~~
 	blink_clock = 5000000,
@@ -24,7 +24,7 @@ def blinker(
 ):
 
 	blink_signal = Signal(intbv(0)[1:])
-	blink_uut = divisor(clk_in=clk, clk_out= blink_signal, division = blink_clock)
+	blink_uut = divisor(clk_in=clock, clk_out= blink_signal, division = blink_clock)
 	
 	@always_comb
 	def map_N_led():

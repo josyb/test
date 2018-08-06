@@ -1,5 +1,7 @@
 import sys
 import myhdl
+import os
+sys.path.append( os.path.abspath("../../src/") )
 from myhdl import block, Signal, intbv
 
 from ClkDriver import ClkDriver

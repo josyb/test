@@ -1,6 +1,4 @@
-tb: upload-tb
-
-upload-tb: tb.bin
+upload: tb.bin
 	sudo iceprog tb.bin
 
 tb.bin: tb.txt
@@ -12,12 +10,12 @@ tb.txt: tb.blif
 tb.blif: divider.v
 	yosys -p "read_verilog divider.v; synth_ice40 -blif tb.blif"
 
-divider.v: do_divisor.py divisor.py
+divider.v: do_divisor.py
 	python do_divisor.py
 
 clean:
 	rm tb.* *.v *.vcd *.pyc
 
 
-test: do_divisor.py divisor.py
+test: do_divisor.py 
 	python do_divisor.py --test
