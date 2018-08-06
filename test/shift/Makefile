@@ -1,6 +1,4 @@
-tb: upload-tb
-
-upload-tb: tb.bin
+upload: tb.bin
 	sudo iceprog tb.bin
 
 tb.bin: tb.txt
@@ -16,7 +14,7 @@ shifter.v: do_shift.py shift.py
 	python do_shift.py
 
 clean:
-	rm tb.* *.v *.vcd
+	rm tb.* *.v *.vcd *.pyc
 
 test: do_shift.py shift.py
 	python do_shift.py --test

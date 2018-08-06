@@ -25,9 +25,9 @@ def shift(
             clk_cnt.next = 1
             print ("%s led change!%s"% (now(),str(led_mem)))
             if ltr:
-                led_mem.next=led_mem<<1
+                led_mem.next=led_mem << 1
             else:
-                led_mem.next=led_mem>>1
+                led_mem.next=led_mem >> 1
             if led_mem == 1<<1:
                 ltr.next=1
                 print ("%s dir change!  go 1"%now())
@@ -36,9 +36,10 @@ def shift(
                 print ("%s dir change!  go 0"%now())
         else:
             clk_cnt.next = clk_cnt + 1
-        if clk_cnt==0:
-            led_mem.next = 1
 
+        if clk_cnt == 0:
+            led_mem.next = 1
+            ltr.next = 1
 
 
     @always_comb

@@ -33,4 +33,4 @@ if do_test:
     tr.run_sim(1000)
 else:
     tr = shifter(clock,leds)
-    tr.convert('Verilog')
+    tr.convert('Verilog',initial_values=True)
