@@ -5,7 +5,6 @@ def divisor(
 	# ~~~[Ports]~~~
 	clk_in,		# input  : clock
 	clk_out,	# output  : one pulse will start every frequence clock cycles
-
 	# ~~~[Parameters]~~~
 	division = 100
 ):
@@ -14,8 +13,7 @@ def divisor(
 
 	@always(clk_in.posedge)
 	def beh_strobe():
-		#print ("%s posedge "%(now()))
-		if clk_cnt >= division:
+		if clk_cnt >= division-1:
 			div_mem.next = not div_mem
 			clk_cnt.next = 0
 		else:
