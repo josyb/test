@@ -1,6 +1,4 @@
-tb: upload-tb
-
-upload-tb: tb.bin
+upload: tb.bin
 	sudo iceprog tb.bin
 
 tb.bin: tb.txt

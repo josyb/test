@@ -1,10 +1,13 @@
 import sys
+import os
+sys.path.append( os.path.abspath("../../src/") )
+
 import myhdl
-from myhdl import block, Signal, intbv
+from myhdl import block, Signal, intbv, always_comb
 
 from ClkDriver import ClkDriver
 from blink import blink
-from ? import divisor
+from divisor import divisor
 
 num_led = 8
 clock = Signal(False)
@@ -19,11 +22,11 @@ def test_blinker(clk,leds):
 @block
 def blinker(clk,leds):
 	#tbdut = blink(clk, leds, num_led)
-	blink_signal = Signal(0) 
+	blink_signal = Signal(intbv(0)[1:])
 	blink_uut = divisor(clk_in=clk, clk_out= blink_signal, division = 5000000)
 
 	
-	@always_comb()
+	@always_comb
 	def map_N_led():
 		for i in range(0,8):
 			if(i < num_led):
