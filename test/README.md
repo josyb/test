@@ -2,7 +2,7 @@ folders:
 
 -blink
 
-a simple blinking led, editing num_led you can choose how many, form 2 to 8. only one requires a bit different pcf configuration
+a simple blinking led, editing num_led you can choose how many, form 1 to 8.
 
 -divisor
 
@@ -14,13 +14,11 @@ given frequency and duration pulsegen generates a pulse that starts every freque
 
 -shift
 
-uses the 8 leds in the breakot board and shift a led.
-
-actually, it is still not working, I may have found a solution though
+uses the 8 leds in the breakout board and shift a led.
 
 -wavegen
 
-generates as output a value ranging between min and max (linear variation over time)
+generates as output a value ranging between min and max (linear variation over time), shows binary counter on leds
 
 -wavepulsegen
 
