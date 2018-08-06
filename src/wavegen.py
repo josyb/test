@@ -21,9 +21,9 @@ def wavegen(
 			val_mem.next = val_mem+variation
 		else:
 			val_mem.next = val_mem-variation
-		if val_mem >= max_val:
+		if val_mem >= max_val-1:
 			up_or_down.next = 0
-		if val_mem <= min_val:
+		if val_mem <= min_val+1:
 			up_or_down.next = 1
 	@always_comb
 	def beh_map_output():
