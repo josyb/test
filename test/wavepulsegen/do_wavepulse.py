@@ -13,26 +13,35 @@ clock = Signal(False)
 pulse = Signal(False)
 
 width=32
+
 @block
-def wavepulser(clk,out):
-	freq = Signal(intbv(50000,max=10000000)[width:])
-	dur = Signal (intbv(100,max=10000000)[width:])
+def wavepulser(
+	# ~~~[Ports]~~~
+	clock,
+	out,
+	# ~~~[Parameters]~~~
+	frequency_min =3000,
+	frequency_max =20000,
+	duration = 100,
+	wavespeed = 50000,
+	wavevariation=20
+):
+	
+	frequency_mean=(frequency_min+frequency_max)/2
+
+	freq = Signal(intbv(frequency_min ,max=10000000)[width:])
+	dur = Signal (intbv(duration ,max=10000000)[width:])
 	clk_div = Signal(False)
-	pg = pulsegen (clk, freq, dur, out)
-	div = divisor (clk_in=clk, division=50000,  clk_out= clk_div)
-	wg = wavegen (clk_div, out_val=freq, min_val=3000, max_val=20000, start=10000)#, count=50000)
+	pg = pulsegen (clock, freq, dur, out)
+	div = divisor (clk_in=clock, division=wavespeed,  clk_out= clk_div)
+	wg = wavegen (clk_div, out_val=freq, min_val=frequency_min, max_val=frequency_max, start=frequency_mean, variation=wavevariation)
 	return wg, pg, div
 
 @block
-def test_wavepulser(clk,out):
-	clkdrv = ClkDriver(clk=clk, period=10)
-	freq = Signal(intbv(3,max=50))
-	dur = Signal(intbv(1,max=20))
-	clk_div = Signal(False)
-	pg = pulsegen(clk, freq, dur, out)
-	div = divisor(clk_in=clk, division=30 ,clk_out= clk_div)
-	wg = wavegen(clk_div,freq,min_val=2, max_val=10,start=3)
-	return pg, div, wg, clkdrv
+def test_wavepulser(clock,out):
+	clkdrv = ClkDriver(clk=clock, period=10)
+	wp=wavepulser(clock=clock, out=out, frequency_min=2,frequency_max=8, duration=1, wavespeed=30, wavevariation=1)
+	return wp, clkdrv
 
 if "--test" in str(sys.argv):
 	do_test=True

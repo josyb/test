@@ -8,6 +8,7 @@ def wavegen(
 	# ~~~[Parameters]~~~
 	min_val,	# input  : one pulse will start every frequence clock cycles
 	max_val,	# input  : every pulse will last duration clock cycles
+	variation=20,
 	bus_width = 32,
 	start = 0
 ):
@@ -17,9 +18,9 @@ def wavegen(
 	@always(clock.posedge)
 	def beh_strobe():
 		if up_or_down:
-			val_mem.next = val_mem+20
+			val_mem.next = val_mem+variation
 		else:
-			val_mem.next = val_mem-20	
+			val_mem.next = val_mem-variation
 		if val_mem >= max_val:
 			up_or_down.next = 0
 		if val_mem <= min_val:
