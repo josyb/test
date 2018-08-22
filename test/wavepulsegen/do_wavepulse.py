@@ -20,11 +20,11 @@ def wavepulser(
 	clock,
 	out,
 	# ~~~[Parameters]~~~
-	frequency_min =3000,
+	frequency_min =2000,
 	frequency_max =20000,
 	duration = 100,
 	wavespeed = 50000,
-	wavevariation=20
+	wavevariation=40
 ):
 	
 	frequency_mean=(frequency_min+frequency_max)/2
