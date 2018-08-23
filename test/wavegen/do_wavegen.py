@@ -1,12 +1,10 @@
 import sys
 import myhdl
 import os
-sys.path.append( os.path.abspath("../../src/") )
+sys.path.append( os.path.abspath("../../") )
 from myhdl import block, Signal, intbv
 
-from ClkDriver import ClkDriver
-from wavegen import wavegen
-from divisor import divisor
+from src import ClkDriver, wavegen, divisor
 
 bus_width = 8
 

@@ -1,7 +1,9 @@
-
+import sys
+import os
+sys.path.append( os.path.abspath("..") )
 import myhdl
 from myhdl import Signal, intbv, always, concat, always_comb
-from des import des
+from src import des
 
 
 #rx = Signal(intbv()[8:0])
@@ -12,13 +14,10 @@ def spi_slave(clk, miso, mosi, cs, rx):
 	
 	mosi_to_des = Signal(0)
 	clk_to_des = Signal(0)
-	rst_to_des = Signal(1)
-	ddes =  des (clk_to_des, rx , mosi_to_des, rst_to_des )
+	enable_to_des = Signal(1)
+	ddes =  des (clk_to_des, rx , mosi_to_des, enable_to_des )
 
 	
-	
-
-
 	@always_comb
 	def things():
 		if(cs == 0):
@@ -27,7 +26,7 @@ def spi_slave(clk, miso, mosi, cs, rx):
 		else:
 			mosi_to_des.next = 0
 			clk_to_des.next = 0
-		rst_to_des.next =cs
+		enable_to_des.next =not cs
 	
 	
 	return myhdl.instances()

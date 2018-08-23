@@ -1,13 +1,10 @@
 import sys
 import os
-sys.path.append( os.path.abspath("../../src/") )
+sys.path.append( os.path.abspath("../../") )
 import myhdl
 from myhdl import block, Signal, intbv
 
-from ClkDriver import ClkDriver
-from pulsegen import pulsegen
-from wavegen import wavegen
-from divisor import divisor
+from src import ClkDriver, pulsegen, wavegen, divisor
 
 clock = Signal(False)
 pulse = Signal(False)

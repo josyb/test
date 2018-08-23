@@ -1,13 +1,16 @@
-
-from myhdl import Signal, intbv, always, always_comb
-from des import des
+import sys
+import os
+sys.path.append( os.path.abspath("../") )
+import myhdl
+from myhdl import Signal, intbv, always, always_comb,block
+from src import des
 
 
 #rx = Signal(intbv()[8:0])
 
 
 @block
-def spi_slave(clk, miso, mosi, cs, rx):
+def spi_master(clk, miso, mosi, cs, rx):
 	
 	mosi_to_ser = Signal(0)
 	clk_to_ser = Signal(0)
